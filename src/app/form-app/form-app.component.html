@@ -1,0 +1,46 @@
+<br>
+<br>
+<div class="container">
+	<form id="fileUploadForm"
+      enctype="multipart/form-data">
+    <fieldset>
+        <div class="form-horizontal">
+            <div class="form-group">
+                <div class="row">
+                <label class="control-label col-md-2 text-right" for="filename"><span>File</span></label>
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <input type="file" id="uploadedFile" name="uploadedFile" class="form-control form-control-sm" 
+                        accept="image/*" (change)="onSelectFile($event)">
+                        
+                        <div class="input-group-btn">
+                            <button type="button" (click)="uploadFile()" class="btn btn-primary">Submit</button>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>                        
+        </div>
+    </fieldset> 
+    
+    <div class="form-group">
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-4">
+                <label for="orderId">Order Id:</label>
+                <input type="text" class="form-control" id="orderId" [(ngModel)]="orderId" name="orderId">
+            </div>
+            <div class="col-sm-2">
+                <br>
+                <button type="button" (click)="downloadOrder()" class="btn btn-primary">Submit</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-2"></div>
+            <div class="col-sm-4">
+                <img class="img-fluid img-thumbnail" [src]="image" style="height: 171px;width: fit-content">
+            </div>
+        </div>
+      </div>
+</form>
+</div>
