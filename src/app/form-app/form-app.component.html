@@ -1,46 +1,48 @@
 <br>
 <br>
 <div class="container">
-	<form id="fileUploadForm"
-      enctype="multipart/form-data">
-    <fieldset>
-        <div class="form-horizontal">
-            <div class="form-group">
-                <div class="row">
-                <label class="control-label col-md-2 text-right" for="filename"><span>File</span></label>
-                <div class="col-md-6">
-                    <div class="input-group">
-                        <input type="file" id="uploadedFile" name="uploadedFile" class="form-control form-control-sm" 
-                        accept="image/*" (change)="onSelectFile($event)">
-                        
-                        <div class="input-group-btn">
-                            <button type="button" (click)="uploadFile()" class="btn btn-primary">Submit</button>
-                        </div>
-                    </div>
-                </div>
-                </div>
-            </div>                        
+	<form>
+        <div class="form-group">
+            <label for="contactNumber">Contact Number:</label>
+            <input type="text" id="contactNumber" class="form-control" placeholder="Contact Number" aria-label="Username" 
+            aria-describedby="addon-wrapping">
         </div>
-    </fieldset> 
-    
-    <div class="form-group">
-        <div class="row">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-4">
-                <label for="orderId">Order Id:</label>
-                <input type="text" class="form-control" id="orderId" [(ngModel)]="orderId" name="orderId">
-            </div>
-            <div class="col-sm-2">
-                <br>
-                <button type="button" (click)="downloadOrder()" class="btn btn-primary">Submit</button>
-            </div>
+        <div class="form-group">
+            <label for="customerName">Customer Name:</label>
+            <input type="text" id="customerName" class="form-control" placeholder="Customer Number" aria-label="Username" 
+            aria-describedby="addon-wrapping">
         </div>
-        <div class="row">
-            <div class="col-sm-2"></div>
-            <div class="col-sm-4">
-                <img class="img-fluid img-thumbnail" [src]="image" style="height: 171px;width: fit-content">
-            </div>
+        <div class="form-group">
+            <label for="typeOfPhoto">Select Type:</label>
+            <select class="form-control" id="typeOfPhoto">
+              <option>Passport</option>
+              <option>Stamp</option>
+            </select>
         </div>
-      </div>
-</form>
+        <div class="form-group">
+            <label for="quantity">Quantity:</label>
+            <select class="form-control" id="quantity">
+              <option>5</option>
+              <option>10</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="date">Expected Delivery Date:</label>
+            <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text"/>
+        </div>
+    </form>
 </div>
+
+
+<script>
+    $(document).ready(function(){
+        var date_input=$('input[name="date"]'); //our date input has the name "date"
+        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+        date_input.datepicker({
+            format: 'mm/dd/yyyy',
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+        })
+    })
+</script>
