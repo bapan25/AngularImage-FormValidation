@@ -1,48 +1,131 @@
 <br>
 <br>
 <div class="container">
-	<form>
+	<form [formGroup]="customerForm" (ngSubmit)="submitForm()">
         <div class="form-group">
             <label for="contactNumber">Contact Number:</label>
-            <input type="text" id="contactNumber" class="form-control" placeholder="Contact Number" aria-label="Username" 
+            <input type="text" id="contactNumber" formControlName="contactNumber" class="form-control" placeholder="Contact Number" aria-label="Username" 
             aria-describedby="addon-wrapping">
+
+            <div *ngIf="contactNumber.invalid && (contactNumber.dirty ||contactNumber.touched)">
+                
+                <div *ngIf="contactNumber.errors.required">
+                    <div class="alert alert-danger" role="alert">
+                        Provide Contact Number
+                    </div>
+                </div>
+
+                <div *ngIf="contactNumber.errors.pattern">
+                    <div class="alert alert-danger" role="alert">
+                        Invalid Contact Number
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="form-group">
             <label for="customerName">Customer Name:</label>
-            <input type="text" id="customerName" class="form-control" placeholder="Customer Number" aria-label="Username" 
+            <input type="text" id="customerName" formControlName="customerName" class="form-control" placeholder="Customer Number" aria-label="Username" 
             aria-describedby="addon-wrapping">
+
+            <div *ngIf="customerName.invalid && (customerName.dirty || customerName.touched)">
+                <div class="alert alert-danger" role="alert">
+                    In Valid Customer Name
+                </div>
+            </div>
         </div>
         <div class="form-group">
             <label for="typeOfPhoto">Select Type:</label>
-            <select class="form-control" id="typeOfPhoto">
+            <select class="form-control" id="typeOfPhoto" formControlName="typeOfPhoto">
               <option>Passport</option>
               <option>Stamp</option>
             </select>
+
+            <div *ngIf="typeOfPhoto.invalid && (typeOfPhoto.dirty || typeOfPhoto.touched)">
+                <div class="alert alert-danger" role="alert">
+                    Please Provide Type of Photo (Passport / Stamp)
+                </div>
+            </div>
         </div>
         <div class="form-group">
             <label for="quantity">Quantity:</label>
-            <select class="form-control" id="quantity">
+            <select class="form-control" id="quantity" formControlName="quantity">
               <option>5</option>
               <option>10</option>
             </select>
+
+            <div *ngIf="quantity.invalid && (quantity.dirty || quantity.touched)"> 
+                <div class="alert alert-danger" role="alert">
+                    Please Provide Quantity
+                </div>
+
+            </div>
         </div>
         <div class="form-group">
-            <label for="date">Expected Delivery Date:</label>
-            <input class="form-control" id="date" name="date" placeholder="MM/DD/YYYY" type="text"/>
+            <div class="row">
+                <div class="col-sm-11">
+                    <label for="date">Expected Delivery Date:</label>
+                    <input class="form-control" [min]="minDate" [max]="maxDate" formControlName="expDelDate" [matDatepicker]="picker" id="date" name="date" 
+                    placeholder="MM/DD/YYYY" type="text"/>
+                </div>
+                <div class="col-sm-1">
+                    <br>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </div>
+
+                <div *ngIf="expDelDate.invalid && (expDelDate.dirty || expDelDate.touched)">
+                    <div class="alert alert-danger" role="alert">
+                        Please Provide Date of Delivery
+                    </div>
+                </div>
+            </div>
         </div>
+        <div class="form-group">
+            <label for="price">Total Amount:</label>
+            <input type="text" id="price" [(ngModel)]="amount" name="amount" formControlName="totalAmount" class="form-control" 
+            placeholder="Total Amount" aria-label="Username" aria-describedby="addon-wrapping">
+
+            <div *ngIf="totalAmount.invalid && (totalAmount.dirty || totalAmount.touched)">
+                <div *ngIf="totalAmount.errors.required">    
+                    <div class="alert alert-danger" role="alert">
+                        Please Provide Total Amount
+                    </div>
+                </div>
+
+                <div *ngIf="totalAmount.errors.pattern">    
+                    <div class="alert alert-danger" role="alert">
+                        Invalid Amount
+                    </div>
+                </div>
+           
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="advance">Advance:</label>
+            <input type="text" id="advance"  [(ngModel)]="advAmount" name="advAmount" formControlName="advance" class="form-control" placeholder="Advance" aria-label="Username" 
+             *ngIf="totalAmount.valid" aria-describedby="addon-wrapping">
+            <input class="form-control" type="text" *ngIf="!totalAmount.valid" placeholder="Advance" readonly>
+            <div *ngIf="advance.invalid && (advance.dirty || advance.touched)">
+                <div *ngIf="advance.errors.required">
+                    <div class="alert alert-danger" role="alert">
+                        No Advance? Enter 0 to proceed...
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="due">Due: {{amount-advAmount}}</label>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlFile1">Photo</label>
+            <input type="file" formControlName="file" class="form-control-file" id="exampleFormControlFile1">
+            
+            <div *ngIf="file.invalid && (file.dirty || file.touched)">
+                <div class="alert alert-danger" role="alert">
+                    Please attach the file...
+                </div>
+            </div>
+        </div>
+        <button type="submit" [disabled]="!customerForm.valid" class="btn btn-primary">Submit</button>
     </form>
 </div>
-
-
-<script>
-    $(document).ready(function(){
-        var date_input=$('input[name="date"]'); //our date input has the name "date"
-        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
-        date_input.datepicker({
-            format: 'mm/dd/yyyy',
-            container: container,
-            todayHighlight: true,
-            autoclose: true,
-        })
-    })
-</script>
