@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 
+
 @Component({
   selector: 'app-form-app',
   templateUrl: './form-app.component.html',
@@ -73,7 +74,17 @@ export class FormAppComponent implements OnInit {
       formData.append('file', this.userFile);
       console.log(formData.get('file'));
       console.log(formData);
-
+      /***************************************************************************************/ 
+      // let image = new Image();
+      // image.src = URL.createObjectURL(this.userFile);
+      // image.onload = () => {
+      //   let width = image.width;
+      //   let height = image.height;
+      //   console.log('width ===>  '+ width);
+      //   console.log('height ===> ' + height);
+      // }
+      
+      /***************************************************************************************/ 
       this._http.post('http://localhost:8081/upload', formData).subscribe((response) => {
           console.log('response');
           console.log(response);

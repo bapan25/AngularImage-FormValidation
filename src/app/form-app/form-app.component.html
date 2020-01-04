@@ -1,7 +1,7 @@
 <br>
 <br>
 <div class="container">
-	<form [formGroup]="customerForm" (ngSubmit)="submitForm()">
+	<form [formGroup]="customerForm" (ngSubmit)="uploadFile()">
         <div class="form-group">
             <label for="contactNumber">Contact Number:</label>
             <input type="text" id="contactNumber" formControlName="contactNumber" class="form-control" placeholder="Contact Number" aria-label="Username" 
@@ -118,7 +118,8 @@
         </div>
         <div class="form-group">
             <label for="exampleFormControlFile1">Photo</label>
-            <input type="file" formControlName="file" class="form-control-file" id="exampleFormControlFile1">
+            <input type="file" formControlName="file" id="uploadedFile" name="uploadedFile" class="form-control form-control-sm" 
+            accept="image/*" (change)="onSelectFile($event)">
             
             <div *ngIf="file.invalid && (file.dirty || file.touched)">
                 <div class="alert alert-danger" role="alert">
